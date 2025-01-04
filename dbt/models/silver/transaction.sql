@@ -14,6 +14,7 @@ WITH source AS (
   {% endif %}
 ),
 
+-- Treats NULLs and trims varchar fields
 cleaned_strings AS (
   SELECT
     NULLIF(TRIM(transaction_date), '') AS transaction_date,
@@ -30,6 +31,7 @@ cleaned_strings AS (
   FROM source
 ),
 
+-- Performs the necessary transformations and casts fields when necessary
 transformed AS (
 SELECT
   -- Converts all dates to a homogeneous date format, accounting for all possible input options
@@ -48,8 +50,8 @@ SELECT
   product_name,
   quantity::INTEGER AS quantity,
   -- The Word2Number function is created during the Docker container build
-  -- It is applied for every case where a price/tag value is composed of alphabetical characters
-  -- Python libraries such as Word2Number are also an option, but Python cannot be executed in Postgres (bear in mind that this would be a feasible option in BigQuery/Snowflake)
+  -- It is applied for every case where a price/tag value is comprised of alphabetical characters
+  -- Python libraries such as Word2Number are also an option, but Python cannot be executed in Postgres (bear in mind that this would be a feasible option in other engines)
   (CASE
     WHEN price ~ '^[A-Za-z -]+$' THEN Word2Number(price)
     ELSE price
