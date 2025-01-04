@@ -221,6 +221,7 @@ services:
       POSTGRES_DB: dbt_db
     ports:
       - "5434:5432"
+    ## Uses the "init_postgres_dbt.sql" file to set up the required database infrastructure
     volumes:
       - postgres_dbt_data:/var/lib/postgresql/data
       - ./postgres_config/init_postgres_dbt.sql:/docker-entrypoint-initdb.d/init_postgres_dbt.sql
