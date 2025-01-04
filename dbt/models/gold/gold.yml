@@ -1,0 +1,198 @@
+version: 2
+
+models:
+  - name: transaction_fct
+    description: |
+      This model extracts key fields from the `transaction` model, retaining only the most important columns for further analysis. 
+      It includes essential transaction details such as transaction ID, customer ID, product ID, customer location, transaction date, quantity, price, and tax.
+    columns:
+
+      - name: transaction_id
+        description: "Surrogate key uniquely identifying each transaction."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+          - unique
+
+      - name: customer_id
+        description: "Surrogate key uniquely identifying the customer, generated from customer-specific details."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: product_id
+        description: "Surrogate key uniquely identifying the product involved in the transaction."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: customer_location_id
+        description: "Surrogate key uniquely identifying the customer's location, based on their city and country."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: transaction_date
+        description: "Date when the transaction occurred, standardized to a consistent format."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: quantity
+        description: "Quantity of the product purchased in the transaction."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: price
+        description: "Price of the product purchased, in numeric format."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: tax
+        description: "Tax applied to the transaction."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+  - name: product_dim
+    description: |
+      This model extracts the product ID and product name from the `transaction` model. It serves as a simplified view of the products involved in customer transactions.
+    columns:
+
+      - name: id
+        description: "Unique identifier for the product involved in the transaction."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+          - unique
+
+      - name: name
+        description: "Name of the product involved in the transaction."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+  - name: location_dim
+    description: |
+      This model extracts the customer location ID, city, and country from the `transaction` model.
+      It provides a summary of the unique locations of customers based on their city and country.
+    columns:
+
+      - name: id
+        description: "Unique identifier for the customer's location, based on city and country."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+          - unique
+
+      - name: city
+        description: "City where the customer resides."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: country
+        description: "Country where the customer resides."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+  - name: customer_dim
+    description: |
+      This model extracts key customer details, including customer ID, name, email, phone, and location (city and country) 
+      from the `transaction` model. It provides a simplified view of the customer information.
+    columns:
+
+      - name: id
+        description: "Unique identifier for the customer."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+          - unique
+
+      - name: first_name
+        description: "First name of the customer."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: last_name
+        description: "Last name of the customer."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: email
+        description: "Email address of the customer."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+          - unique
+
+      - name: phone
+        description: "Phone number of the customer."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: country
+        description: "Country where the customer resides."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: city
+        description: "City where the customer resides."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+  - name: date_dim
+    description: |
+      This model generates a date dimension table with various date attributes (e.g., day of the week, week of the year, quarter, etc.) 
+      for a date range from January 1, 2020 to December 31, 2050. It is used for time-based analysis and joins in other models.
+    columns:
+
+      - name: date
+        description: "The full date value in 'YYYY-MM-DD' format."
+
+      - name: day_of_month
+        description: "The day of the month (1 to 31)."
+
+      - name: month_of_year
+        description: "The month of the year (1 to 12)."
+
+      - name: year_number
+        description: "The year number (e.g., 2020, 2021)."
+
+      - name: day_of_week
+        description: "The name of the day of the week (e.g., Monday, Tuesday)."
+
+      - name: week_of_year
+        description: "The week of the year (1 to 52/53)."
+
+      - name: quarter_of_year
+        description: "The quarter of the year (1 to 4)."
+
+  

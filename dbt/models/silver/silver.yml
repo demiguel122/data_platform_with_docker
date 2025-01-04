@@ -1,0 +1,109 @@
+version: 2
+
+models:
+  - name: transaction
+    description: |
+      Table storing cleaned and transformed customer transactions with standardized date formats, cleaned string fields, and calculated surrogate keys. 
+      This model also handles the conversion of non-numeric price and tax values and standardizes customer details.
+    columns:
+
+      - name: transaction_id
+        description: "Surrogate key uniquely identifying each transaction, generated from customer, product and date details."
+        tests:
+          - unique
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: customer_id
+        description: "Surrogate key uniquely identifying the customer, generated from customer-specific fields like name, email, and phone."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: transaction_date
+        description: "Standardized date when the transaction occurred. All date formats are converted to a consistent format."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: product_id
+        description: "Surrogate key uniquely identifying the product involved in the transaction, generated from the product name."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: product_name
+        description: "Name of the product involved in the transaction."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: customer_first_name
+        description: "First name of the customer involved in the transaction."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: customer_last_name
+        description: "Last name of the customer involved in the transaction."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: customer_email
+        description: "Email address of the customer."
+        tests:
+          - unique
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: customer_phone
+        description: "Phone number of the customer."
+        tests:
+          - unique
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: customer_country
+        description: "Country of the customer."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: customer_city
+        description: "City of the customer."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: quantity
+        description: "Quantity of the product purchased."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: price
+        description: "Price of the product, potentially transformed from non-numeric strings to numeric values."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: tax
+        description: "Tax applied to the transaction, potentially transformed from non-numeric strings to numeric values."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"

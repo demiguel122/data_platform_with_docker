@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: customer_transactions
+    description: "Table storing customer transactions, including product details and pricing."
+    columns:
+
+      - name: transaction_id
+        description: "Unique identifier for each transaction."
+
+      - name: customer_id
+        description: "Identifier for the customer making the transaction."
+
+      - name: transaction_date
+        description: "Date when the transaction occurred, stored as a string."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: product_id
+        description: "Unique identifier for the product involved in the transaction."
+
+      - name: product_name
+        description: "Name of the product involved in the transaction."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: quantity
+        description: "Quantity of the product purchased."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: price
+        description: "Price of the product as a string."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"
+
+      - name: tax
+        description: "Tax applied to the transaction as a string."
+        tests:
+          - not_null:
+              severity: error
+              error_if: ">20"

@@ -1,0 +1,9 @@
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+dbt/.vscode/
+dbt/.user.yml
+dbt/package-lock.yml
+airflow/logs/
+airflow/dags/__pycache__/
+data/temp_chunks/
