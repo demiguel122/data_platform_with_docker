@@ -1,3 +1,5 @@
+-- Adds the tag "static"
+-- It can be used to "--exclude tag:static" in "dbt run" or "dbt build" commands and avoid materializing the same model every time 
 {{ config(
   materialized='table',
   tags=['static']
