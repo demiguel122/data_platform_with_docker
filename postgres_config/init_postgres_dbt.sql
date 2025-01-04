@@ -1,3 +1,7 @@
+-- Creates three databases: "data_lake", "dev" and "pro"
+-- Creates the target table "customer_transactions" in the schema "forex" of the "data_lake" database. This will be our landing stage for raw data
+-- Creates the function "Word2Number" to convert number words (e.g. "Two Hundred" or "fifteen") to numeric digits (e.g. 200 or 15). This will be used in our silver model
+
 CREATE DATABASE data_lake;
 CREATE DATABASE dev;
 CREATE DATABASE pro;
@@ -44,10 +48,10 @@ SELECT
             REPLACE(
                 REGEXP_REPLACE(
                     CASH_WORDS(num::money),
-                    ' dollar.*',--cut out currency and fractions
+                    ' dollar.*', -- Cuts out currency and fractions
                     ''
                 ),
-                '  ',--remove accidental double spaces
+                '  ', -- Removes accidental double spaces
                 ' ' 
             )
         )
@@ -100,10 +104,10 @@ SELECT
             REPLACE(
                 REGEXP_REPLACE(
                     CASH_WORDS(num::money),
-                    ' dollar.*',--cut out currency and fractions
+                    ' dollar.*',-- Cuts out currency and fractions
                     ''
                 ),
-                '  ',--remove accidental double spaces
+                '  ',-- Removes accidental double spaces
                 ' ' 
             )
         )
