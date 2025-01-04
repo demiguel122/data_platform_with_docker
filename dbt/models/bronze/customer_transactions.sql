@@ -1,5 +1,9 @@
+-- Materialized as a view so as to not have a redundandt copy of the data already sotred in the "data_lake" database
+-- This config is already set at the "dbt_project" level, so it is actually redundant here. It was kept for clarity
 {{ config(materialized='view') }}
 
+-- Uses DBLINK to connect to establish a connection with a different database
+-- The data is stored as-is
 WITH source AS (
   SELECT
     transaction_id,
