@@ -2,7 +2,7 @@
 -- This config is already set at the "dbt_project" level, so it is actually redundant here. It was kept for clarity
 {{ config(materialized='view') }}
 
--- Uses DBLINK to connect to establish a connection with a different database
+-- Uses DBLINK to establish a connection with a different database
 -- The data is stored as-is
 WITH source AS (
   SELECT
