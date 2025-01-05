@@ -23,7 +23,7 @@ The full project is deployable via `docker-compose up`. All the required element
 ### High-level overview
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/774a8a5f-5a60-439c-aaa4-94b6f8127212">
+  <img src="https://github.com/user-attachments/assets/5a7efeb1-572c-4b46-af96-15296e211612">
 </p>
 
 
