@@ -26,7 +26,6 @@ services:
     depends_on:
       - postgres-airflow
     # Sets the necessary environment variables for a distributed processing setup using the CeleryExecutor
-    # I was not very innovative with the webserver credentials
     environment:
       - AIRFLOW__CORE__EXECUTOR=CeleryExecutor
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres-airflow:5432/airflow_db
@@ -35,7 +34,6 @@ services:
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
       - AIRFLOW__WEBSERVER__DEFAULT_USER_USERNAME=admin
       - AIRFLOW__WEBSERVER__DEFAULT_USER_PASSWORD=admin
-    
     # Waits until the Airflow DB is initialized
     # Creates an Airflow user if it doesn't exist
     # Checks if the "dbt_conn" connection exists; otherwise, it creates it
@@ -214,7 +212,6 @@ services:
   postgres-dbt:
     image: postgres:15
     container_name: postgres-dbt
-    # Again, I was not very innovative with the login credentials
     environment:
       POSTGRES_USER: dbt
       POSTGRES_PASSWORD: dbt
