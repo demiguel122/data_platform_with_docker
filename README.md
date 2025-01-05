@@ -27,8 +27,9 @@ The full project is deployable via `docker-compose up`. All the required element
 </p>
 
 
-
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/661da6c4-01d8-49dc-8859-6224e4d32331">
+</p>
 
 
 
