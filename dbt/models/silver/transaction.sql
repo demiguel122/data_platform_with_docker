@@ -14,7 +14,7 @@ WITH source AS (
   {% endif %}
 ),
 
--- Treats NULLs and trims varchar fields
+-- Treats empty strings
 cleaned_strings AS (
   SELECT
     NULLIF(TRIM(transaction_date), '') AS transaction_date,
