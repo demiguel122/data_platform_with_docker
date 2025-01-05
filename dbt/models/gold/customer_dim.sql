@@ -11,9 +11,7 @@ WITH silver AS (
         customer_first_name AS first_name,
         customer_last_name AS last_name,
         customer_email AS email,
-        customer_phone AS phone,
-        customer_country AS country,
-        customer_city AS city
+        customer_phone AS phone
     FROM {{ ref('transaction') }}
 
     {% if is_incremental() %}
