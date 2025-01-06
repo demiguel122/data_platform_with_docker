@@ -21,6 +21,9 @@ models:
           - not_null:
               severity: error
               error_if: ">20"
+          - relationships:
+              to: ref('customer_dim')
+              field: id
 
       - name: product_id
         description: "Surrogate key uniquely identifying the product involved in the transaction."
@@ -28,6 +31,9 @@ models:
           - not_null:
               severity: error
               error_if: ">20"
+          - relationships:
+              to: ref('product_dim')
+              field: id
 
       - name: customer_location_id
         description: "Surrogate key uniquely identifying the customer's location, based on their city and country."
@@ -35,6 +41,9 @@ models:
           - not_null:
               severity: error
               error_if: ">20"
+          - relationships:
+              to: ref('location_dim')
+              field: id
 
       - name: transaction_date
         description: "Date when the transaction occurred, standardized to a consistent format."
@@ -42,6 +51,9 @@ models:
           - not_null:
               severity: error
               error_if: ">20"
+          - relationships:
+              to: ref('date_dim')
+              field: date
 
       - name: quantity
         description: "Quantity of the product purchased in the transaction."
@@ -63,6 +75,7 @@ models:
           - not_null:
               severity: error
               error_if: ">20"
+              
   - name: product_dim
     description: |
       This model extracts the product ID and product name from the `transaction` model. It serves as a simplified view of the products involved in customer transactions.
@@ -149,20 +162,6 @@ models:
 
       - name: phone
         description: "Phone number of the customer."
-        tests:
-          - not_null:
-              severity: error
-              error_if: ">20"
-
-      - name: country
-        description: "Country where the customer resides."
-        tests:
-          - not_null:
-              severity: error
-              error_if: ">20"
-
-      - name: city
-        description: "City where the customer resides."
         tests:
           - not_null:
               severity: error
