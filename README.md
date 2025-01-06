@@ -108,25 +108,23 @@ All models have their respective `not_null`, `unique` and `relationships` tests 
 
 ## Ideas for further improvement
 
-The scalability and performance of the platform could be improved, amongst other, implementing the following:
+The scalability and performance of the platform could be improved, amongst other, implementing the following: 
 
-- PostgreSQL's Read Replicas: 
-
-- Citus for PostgreSQL:
+- **Citus for PostgreSQL**: Citus allows horizontal scaling across multiple PostgreSQL nodes, transforming the instance into a distributed database. Citus partitions the data across multiple machines (nodes) and distributes query workloads, allowing parallel processing of both read and write queries.
 
 For security improvements:
 
--  Docker Secrets:
+-  **Docker Secrets**: for securely storing and managing sensitive data, such as password or API keys.
 
 For resource and performance tracking:
 
-- ELK stack for monitoring/diagnostics against log files.
+- **ELK stack** for monitoring/diagnostics against log files.
 
-- Prometheus and Grafana for metrics collection.
+- **Prometheus** and **Grafana** for metrics collection.
 
 For CI/CD:
 
-- Github Actions:
+- **Github Actions**: for implementing CI/CD or other workflows. An interesting idea is to replicate dbt Cloud's "Slim CI/CD" for dbt-core. It is a lightweight, optimized approach to implementing CI/CD pipelines for dbt projects and avoid large, unnecessary computations by testing only the new/modified models. This is done by combining the `state:modified` selector and the `--defer` flag. The `state:modified` selector includes new/modified nodes only. On top of that, the `--defer` flag points to a different target (usually `pro`, which is up-to-date) so that the pipeline can be implemented without having to re-build the required upstream parents.
 
 ## Contact
 
