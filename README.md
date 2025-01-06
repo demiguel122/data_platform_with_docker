@@ -2,16 +2,16 @@
 
 ## Table of contents
 
-* [Brief Introduction]()
-* [Deployment]()
-* [Platform specifications]()
-* [Pipeline specifications]()
-  * [DAG workflow]()
-  * [dbt workflow]()
-  * [Issues encountered]()
-  * [Other aspects: Incrementality, Testing, etc]()
-* [Ideas for further improvement]()
-* [Contact]()
+* [Brief Introduction](https://github.com/demiguel122/data_platform_with_docker?tab=readme-ov-file#brief-introduction)
+* [Deployment](https://github.com/demiguel122/data_platform_with_docker?tab=readme-ov-file#deployment)
+* [Platform specifications](https://github.com/demiguel122/data_platform_with_docker?tab=readme-ov-file#platform-specifications)
+* [Pipeline specifications](https://github.com/demiguel122/data_platform_with_docker?tab=readme-ov-file#pipeline-specifications)
+  * [DAG workflow](https://github.com/demiguel122/data_platform_with_docker?tab=readme-ov-file#dag-workflow)
+  * [dbt workflow](https://github.com/demiguel122/data_platform_with_docker?tab=readme-ov-file#dbt-workflow)
+  * [Issues encountered](https://github.com/demiguel122/data_platform_with_docker?tab=readme-ov-file#issues-encountered)
+  * [Other aspects: Incrementality, Testing, etc](https://github.com/demiguel122/data_platform_with_docker?tab=readme-ov-file#other-aspects-incrementality-and-testing)
+* [Ideas for further improvement](https://github.com/demiguel122/data_platform_with_docker?tab=readme-ov-file#ideas-for-further-improvement)
+* [Contact](https://github.com/demiguel122/data_platform_with_docker?tab=readme-ov-file#contact)
   
 -------------------
 
