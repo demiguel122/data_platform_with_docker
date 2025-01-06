@@ -92,22 +92,41 @@ Below you can find a diagram showing the schemas for the different models in eac
 
 ### Issues encountered
 
+The source data had some missing values and inconsistencies:
 
+- The fields `price` and `tax` were supposed to contain FLOAT values, but there were instances where they contained number words (e.g. "Two Hundred" or "fifteen"). To solve this issue, a function `Word2Number` is created during database setup that converts such values to their numeric equivalent.
 
-### Other aspects: Incrementality, Testing, etc
+- There where some missing values in the `quantity` field. Since no apparent explaining pattern was found, the ideal solution in a real-life scenario would be contacting people managing the operational system to find out whether the issue is on their side. In case they are of no help, ML imputation methods can be developed. For that end, all such records are materialized into a dbt model called `missing_quantity`, so that they can serve to feed this hypothetical ML pipeline.
 
+-  To avoid problems in case the UUIDs generated in the OLTP system changed, we produce primary and foreign keys using (composite, when possible) natural keys, which are less prone to change than their operational counterparts. This way, we effectively discard operational UUIDs and ensure referential integrity regardless of the existence of missing values for these fields in the raw data.
 
+### Other aspects: Incrementality, and Testing
 
+Except for the bronze layer, which is materialized as a view to avoid redundancies, and all data marts models (also materialized as views), the remaining models are materialized as incremental tables to allow for efficiency. The `incremental_strategy` was set to `merge`. Note that, in order to leverage incrementality, a `load_timestamp` field was introduced in every model.
 
-
-
+All models have their respective `not_null`, `unique` and `relationships` tests implemented.
 
 ## Ideas for further improvement
 
+The scalability and performance of the platform could be improved, amongst other, implementing the following:
 
+- PostgreSQL's Read Replicas: 
 
+- Citus for PostgreSQL:
 
+For security improvements:
 
+-  Docker Secrets:
+
+For resource and performance tracking:
+
+- ELK stack for monitoring/diagnostics against log files.
+
+- Prometheus and Grafana for metrics collection.
+
+For CI/CD:
+
+- Github Actions:
 
 ## Contact
 
