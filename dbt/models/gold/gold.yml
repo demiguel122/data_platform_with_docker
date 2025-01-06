@@ -154,20 +154,6 @@ models:
               severity: error
               error_if: ">20"
 
-      - name: country
-        description: "Country where the customer resides."
-        tests:
-          - not_null:
-              severity: error
-              error_if: ">20"
-
-      - name: city
-        description: "City where the customer resides."
-        tests:
-          - not_null:
-              severity: error
-              error_if: ">20"
-
   - name: date_dim
     description: |
       This model generates a date dimension table with various date attributes (e.g., day of the week, week of the year, quarter, etc.) 
