@@ -8,7 +8,7 @@
 * [Pipeline specifications]()
   * [DAG workflow]()
   * [dbt workflow]()
-  * [Data models per layer]()
+  * [Issues encountered]()
   * [Other aspects: Incrementality, Testing, etc]()
 * [Ideas for further improvement]()
 * [Contact]()
@@ -48,7 +48,7 @@ The Data Platform has three main components:
     - `dbt`: transformation tool
     - `postgres-dbt`: we will use postgres databases to store all raw and transformed data. More specifically, the following databases will be created during deployment using the `init_postgres_dbt.sql` file as an entrypoint:
       
-      - `data_lake`: will contain all raw data as-is. This is the target database where our DAG will load the extracted data. dbt will not materialize any models here. It will only read.
+      - `data_lake`: will contain all raw data as-is. This is the target database where our DAG will load the extracted data. dbt will not materialize any models here. It will be read-only.
       - `dev`: database used for the development environment
       - `pro`: database used for the production environment
       
@@ -72,13 +72,27 @@ The DAG `forex__customer_transactions__hourly.py` is comprised of three tasks:
 
 ### dbt workflow
 
-### Data models per layer
+As briefly mentioned above, the data platform contains three distinct databases under the `postgres-dbt` container: `data_lake`, `dev` and `pro`. 
+
+Data will be ingested into `data_lake` via Airflow, and then dbt will read from those data and materialize into `dev` or `pro`, depending on the `--target` specified. 
+
+If the target is `dev`, models will be materialized in the `dev.<user>_<directory_name>` schema. For instance: a model located in the `dbt/models/silver` directory will be materialized in the schema `dev.<user>_silver`. Whenever the target is `pro`, materializations will be performed in the `pro.<directory_name>` schema. For instance: a model located in the `dbt/models/silver` directory will be materialized in the schema `pro.silver`.
+
+For each database connected to dbt, we follow a medallion DWH architecture where data is stored in three different layers: bronze (raw), silver (cleaned) and gold (facts and dimensions). After that, different data marts with aggregate views are created for consumption by the business.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/306a98a3-a796-4a39-be7d-504c6a92c4c1">
+</p>
 
 Below you can find a diagram showing the schemas for the different models in each layer (bronze, silver, gold).
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/661da6c4-01d8-49dc-8859-6224e4d32331">
 </p>
+
+### Issues encountered
+
+
 
 ### Other aspects: Incrementality, Testing, etc
 
